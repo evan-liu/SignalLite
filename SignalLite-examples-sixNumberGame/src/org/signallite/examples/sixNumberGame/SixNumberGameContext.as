@@ -20,7 +20,7 @@ package org.signallite.examples.sixNumberGame
         }
         //======================================================================
         //  Overridden methods
-        // ======================================================================
+        //======================================================================
         override public function startup():void
         {
             signalCommandMap.map(ContextMessage.STARTUP, SetUpModelCommand, true);
