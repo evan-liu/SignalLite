@@ -28,7 +28,7 @@ package org.signallite
          */
         public function bindSignal(signal:ISignal, type:MessageType):void
         {
-            if (!(signal is type.messageClass))
+            if (type.messageClass && !(signal is type.messageClass))
             {
                 throw new IllegalOperationError("This MessageType need " + getQualifiedClassName(type.messageClass) + " but is " + getQualifiedClassName(signal));
             }
@@ -263,7 +263,7 @@ package org.signallite
             }
             for each (var type:MessageType in typeList.concat())
             {
-                if (event is type.messageClass)
+                if (!type.messageClass || (event is type.messageClass))
                 {
                     dispatch(type, event);
                 }
