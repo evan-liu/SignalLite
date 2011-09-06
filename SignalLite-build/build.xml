@@ -1,0 +1,55 @@
+<project basedir="../" name="SignalLite" default="all" >
+
+    <!-- Set up properties. -->
+    <property file="${basedir}/SignalLite-build/build.properties" />
+    <property environment="env." />
+    <fail unless="env.FLEX_HOME" message="FLEX_HOME needs to be defined as an environment variable or in the Ant build." />
+    <property name="FLEX_HOME" value="${env.FLEX_HOME}" />
+
+    <!-- Set up FlexTasks. -->
+    <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+
+    <!-- All -->
+    <target name="all" description="Compile core SWC">
+        <delete dir="${deploy.dir}" />
+
+        <antcall target="core" />
+        <copy file="${deploy.dir}/${core.swc}" todir="${utilities.flexunit.dir}/libs"/>
+        <copy file="${deploy.dir}/${core.swc}" todir="${utilities.robotlegs.dir}/libs" />
+
+        <antcall target="utilities.flexunit" />
+        <copy file="${deploy.dir}/${utilities.flexunit.swc}" tofile="${core.dir}/libs/${utilities.flexunit.swc}" />
+
+        <antcall target="utilities.robotlegs" />
+    </target>
+
+    <!-- core -->
+    <target name="core" description="Compile core SWC">
+        <antcall target="swc">
+            <param name="project" value="${core}" />
+        </antcall>
+    </target>
+    <!-- utilities.flexunit -->
+    <target name="utilities.flexunit" description="Compile FlexUnit utility SWC">
+        <antcall target="swc">
+            <param name="project" value="${utilities.flexunit}" />
+        </antcall>
+    </target>
+    <!-- utilities.robotlegs -->
+    <target name="utilities.robotlegs" description="Compile Robotlegs utility SWC">
+        <antcall target="swc">
+            <param name="project" value="${utilities.robotlegs}" />
+        </antcall>
+    </target>
+
+    <!-- Compile to swc -->
+    <target name="swc" description="Compile AS3 code into a SWC">
+        <compc output="${deploy.dir}/${project}-${version}.swc">
+            <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml" />
+            <include-sources dir="${basedir}/${project}/src/org/SignalLite" includes="*" />
+            <external-library-path dir="${basedir}/${project}/libs" append="true" >
+                <include name="*.swc"/>
+            </external-library-path>
+        </compc>
+    </target>
+</project>
