@@ -11,7 +11,7 @@ package org.signallite
         /**
          * @param messageClass Message class that can bind to this type.
          */
-        public function MessageType(messageClass:Class)
+        public function MessageType(messageClass:Class = null)
         {
             _messageClass = messageClass;
         }
