@@ -12,18 +12,9 @@
     <!-- All -->
     <target name="all" description="Compile core SWC">
         <delete dir="${deploy.dir}" />
-
         <antcall target="core" />
-        <copy file="${deploy.dir}/${core.swc}" todir="${utilities.flexunit.dir}/libs"/>
-        <copy file="${deploy.dir}/${core.swc}" todir="${utilities.robotlegs.dir}/libs" />
-        <copy file="${deploy.dir}/${core.swc}" todir="${examples.sixNumberGame.dir}/libs" />
-
         <antcall target="utilities.flexunit" />
-        <copy file="${deploy.dir}/${utilities.flexunit.swc}" todir="${core.dir}/libs" />
-        <copy file="${deploy.dir}/${utilities.flexunit.swc}" todir="${examples.sixNumberGame.dir}/libs" />
-
         <antcall target="utilities.robotlegs" />
-        <copy file="${deploy.dir}/${utilities.robotlegs.swc}" todir="${examples.sixNumberGame.dir}/libs" />
     </target>
 
     <!-- core -->
@@ -31,18 +22,24 @@
         <antcall target="swc">
             <param name="project" value="${core}" />
         </antcall>
+        <copy file="${deploy.dir}/${core.swc}" todir="${utilities.flexunit.dir}/libs"/>
+        <copy file="${deploy.dir}/${core.swc}" todir="${utilities.robotlegs.dir}/libs" />
+        <copy file="${deploy.dir}/${core.swc}" todir="${examples.sixNumberGame.dir}/libs" />
     </target>
     <!-- utilities.flexunit -->
     <target name="utilities.flexunit" description="Compile FlexUnit utility SWC">
         <antcall target="swc">
             <param name="project" value="${utilities.flexunit}" />
         </antcall>
+        <copy file="${deploy.dir}/${utilities.flexunit.swc}" todir="${core.dir}/libs" />
+        <copy file="${deploy.dir}/${utilities.flexunit.swc}" todir="${examples.sixNumberGame.dir}/libs" />
     </target>
     <!-- utilities.robotlegs -->
     <target name="utilities.robotlegs" description="Compile Robotlegs utility SWC">
         <antcall target="swc">
             <param name="project" value="${utilities.robotlegs}" />
         </antcall>
+        <copy file="${deploy.dir}/${utilities.robotlegs.swc}" todir="${examples.sixNumberGame.dir}/libs" />
     </target>
 
     <!-- Compile to swc -->
