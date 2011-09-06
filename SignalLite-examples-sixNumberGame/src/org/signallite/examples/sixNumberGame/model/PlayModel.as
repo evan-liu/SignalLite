@@ -4,12 +4,21 @@ package org.signallite.examples.sixNumberGame.model
     public class PlayModel
     {
         //======================================================================
+        //  Class constants
+        //======================================================================
+        public static const ROUND_START:int = 1;
+        public static const ROUND_END:int = 6;
+        //======================================================================
         //  Signals
         //======================================================================
         public const gameStarted:Signal = new Signal(this);
         public const gameEnded:Signal = new Signal(this);
+
         public const roundStarted:Signal = new Signal(this);
         public const roundEnded:Signal = new Signal(this);
+
+        public const playerRoundReady:Signal = new Signal(this);
+        public const competitorRoundReady:Signal = new Signal(this);
         //======================================================================
         //  Variables
         //======================================================================
@@ -20,28 +29,40 @@ package org.signallite.examples.sixNumberGame.model
         //  Properties
         //======================================================================
         //------------------------------
-        //  playerValue
+        //  playerRoundValue
         //------------------------------
-        private var _playerValue:int = 0;
-        public function get playerValue():int
+        private var _playerRoundValue:int = 0;
+        public function get playerRoundValue():int
         {
-            return _playerValue;
+            return _playerRoundValue;
+        }
+        public function set playerRoundValue(value:int):void
+        {
+            _playerRoundValue = value;
+            playerRoundReady.dispatch();
+            checkRound();
         }
         //------------------------------
-        //  competitorValue
+        //  competitorRoundValue
         //------------------------------
-        private var _competitorValue:int = 0;
-        public function get competitorValue():int
+        private var _competitorRoundValue:int = 0;
+        public function get competitorRoundValue():int
         {
-            return _competitorValue;
+            return _competitorRoundValue;
+        }
+        public function set competitorRoundValue(value:int):void
+        {
+            _competitorRoundValue = value;
+            competitorRoundReady.dispatch();
+            checkRound();
         }
         //------------------------------
-        //  centerValue
+        //  centerRoundValue
         //------------------------------
-        private var _centerValue:int = 0;
-        public function get centerValue():int
+        private var _centerRoundValue:int = 0;
+        public function get centerRoundValue():int
         {
-            return _centerValue;
+            return _centerRoundValue;
         }
         //------------------------------
         //  roundResult
@@ -52,20 +73,36 @@ package org.signallite.examples.sixNumberGame.model
             return _roundResult;
         }
         //------------------------------
-        //  gameResult
-        //------------------------------
-        private var _gameResult:PlayResult;
-        public function get gameResult():PlayResult
-        {
-            return _gameResult;
-        }
-        //------------------------------
         //  roundNumber
         //------------------------------
         private var _roundNumber:int = 0;
         public function get roundNumber():int
         {
             return _roundNumber;
+        }
+        //------------------------------
+        //  playerGameValue
+        //------------------------------
+        private var _playerGameValue:int = 0;
+        public function get playerGameValue():int
+        {
+            return _playerGameValue;
+        }
+        //------------------------------
+        //  competitorGameValue
+        //------------------------------
+        private var _competitorGameValue:int = 0;
+        public function get competitorGameValue():int
+        {
+            return _competitorGameValue;
+        }
+        //------------------------------
+        //  gameResult
+        //------------------------------
+        private var _gameResult:PlayResult;
+        public function get gameResult():PlayResult
+        {
+            return _gameResult;
         }
         //======================================================================
         //  Public methods
@@ -78,16 +115,18 @@ package org.signallite.examples.sixNumberGame.model
         }
         public function startRound():void
         {
-            _centerValue = randomValue(centerValueList);
+            _roundNumber++;
+            _roundResult = null;
+            _centerRoundValue = randomValue(centerValueList);
             roundStarted.dispatch();
         }
         public function reset():void
         {
-            _roundNumber = 0;
-            _playerValue = 0;
-            _competitorValue = 0;
-            _centerValue = 0;
-            _roundResult = null;
+            _playerRoundValue = 0;
+            _competitorRoundValue = 0;
+            _playerGameValue = 0;
+            _competitorGameValue = 0;
+            _roundNumber = ROUND_START - 1;
             _gameResult = null;
 
             playerValueList = prepareValueList();
@@ -107,6 +146,53 @@ package org.signallite.examples.sixNumberGame.model
             var result:int = list[index];
             list.splice(index, 1);
             return result;
+        }
+        private function checkRound():void
+        {
+            if (_playerRoundValue > 0 && _competitorRoundValue > 0)
+            {
+                endRound();
+            }
+        }
+        private function endRound():void
+        {
+            if (_playerRoundValue == _competitorRoundValue)
+            {
+                drawRound();
+            }
+            else
+            {
+                _playerRoundValue > _competitorRoundValue ? winRound() : loseRound();
+            }
+            roundEnded.dispatch();
+            if (_roundNumber == ROUND_END)
+            {
+                endGame();
+            }
+        }
+        private function winRound():void
+        {
+            _roundResult = PlayResult.WIN;
+        }
+        private function loseRound():void
+        {
+            _roundResult = PlayResult.LOSE;
+        }
+        private function drawRound():void
+        {
+            _roundResult = PlayResult.DRAW;
+        }
+        private function endGame():void
+        {
+            if (_playerRoundValue == _competitorRoundValue)
+            {
+                _gameResult = PlayResult.DRAW;
+            }
+            else
+            {
+                _gameResult = _playerRoundValue > _competitorRoundValue ? PlayResult.WIN : PlayResult.LOSE;
+            }
+            gameEnded.dispatch();
         }
     }
 }

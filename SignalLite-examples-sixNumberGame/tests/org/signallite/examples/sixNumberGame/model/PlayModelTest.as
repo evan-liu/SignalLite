@@ -1,5 +1,6 @@
 package org.signallite.examples.sixNumberGame.model
 {
+    import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertTrue;
     import org.signallite.integrations.flexunit.proceedOnSignal;
     public class PlayModelTest
@@ -36,7 +37,13 @@ package org.signallite.examples.sixNumberGame.model
             proceedOnSignal(this, instance.roundStarted);
             instance.startGame();
 
-            assertTrue(instance.centerValue > 0 && instance.centerValue <= 6);
+            assertTrue(instance.centerRoundValue > 0 && instance.centerRoundValue <= 6);
+            assertEquals(PlayModel.ROUND_START, instance.roundNumber);
+        }
+        [Test]
+        public function set_player_value_then_competitor_value_end_round():void
+        {
+            
         }
     }
 }
