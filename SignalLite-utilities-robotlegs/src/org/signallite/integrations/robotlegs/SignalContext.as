@@ -1,8 +1,8 @@
 package org.signallite.integrations.robotlegs
 {
-    import org.signallite.MessageBus;
     import org.robotlegs.mvcs.Context;
     import org.signallite.IMessageBus;
+    import org.signallite.MessageBus;
 
     import flash.display.DisplayObjectContainer;
 
@@ -51,6 +51,14 @@ package org.signallite.integrations.robotlegs
             super.mapInjections();
             injector.mapValue(IMessageBus, messageBus);
             injector.mapValue(ISignalCommandMap, signalCommandMap);
+        }
+        override public function startup():void
+        {
+            messageBus.dispatch(ContextMessage.STARTUP_COMPLETE);
+        }
+        override public function shutdown():void
+        {
+            messageBus.dispatch(ContextMessage.SHUTDOWN_COMPLETE);
         }
     }
 }
