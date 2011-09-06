@@ -16,11 +16,14 @@
         <antcall target="core" />
         <copy file="${deploy.dir}/${core.swc}" todir="${utilities.flexunit.dir}/libs"/>
         <copy file="${deploy.dir}/${core.swc}" todir="${utilities.robotlegs.dir}/libs" />
+        <copy file="${deploy.dir}/${core.swc}" todir="${examples.sixNumberGame.dir}/libs" />
 
         <antcall target="utilities.flexunit" />
-        <copy file="${deploy.dir}/${utilities.flexunit.swc}" tofile="${core.dir}/libs/${utilities.flexunit.swc}" />
+        <copy file="${deploy.dir}/${utilities.flexunit.swc}" todir="${core.dir}/libs" />
+        <copy file="${deploy.dir}/${utilities.flexunit.swc}" todir="${examples.sixNumberGame.dir}/libs" />
 
         <antcall target="utilities.robotlegs" />
+        <copy file="${deploy.dir}/${utilities.robotlegs.swc}" todir="${examples.sixNumberGame.dir}/libs" />
     </target>
 
     <!-- core -->
