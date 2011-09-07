@@ -234,13 +234,13 @@ package org.signallite.examples.sixNumberGame.model
         }
         private function endGame():void
         {
-            if (_playerOutValue == _competitorOutValue)
+            if (_playerGameValue == _competitorGameValue)
             {
                 _gameResult = PlayResult.DRAW;
             }
             else
             {
-                _gameResult = _playerOutValue > _competitorOutValue ? PlayResult.WIN : PlayResult.LOSE;
+                _gameResult = _playerGameValue > _competitorGameValue ? PlayResult.WIN : PlayResult.LOSE;
             }
             gameEnded.dispatch(_gameResult);
         }

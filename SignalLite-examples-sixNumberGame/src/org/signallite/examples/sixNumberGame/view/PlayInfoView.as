@@ -1,5 +1,6 @@
 package org.signallite.examples.sixNumberGame.view
 {
+    import flash.text.TextFormat;
     import org.signallite.examples.sixNumberGame.model.PlayResult;
 
     import flash.display.Sprite;
@@ -23,6 +24,7 @@ package org.signallite.examples.sixNumberGame.view
         private var roundResultField:TextField;
         private var outValueField:TextField;
         private var scoreField:TextField;
+        private var resultField:TextField;
         //======================================================================
         //  Public methods
         //======================================================================
@@ -103,6 +105,15 @@ package org.signallite.examples.sixNumberGame.view
         }
         public function renderGameResult(result:PlayResult):void
         {
+            var text:String = "Game Result: " + result.value;
+            if (resultField)
+            {
+                updateField(resultField, text);
+            }
+            else
+            {
+                resultField = createField(text, 170, new TextFormat("Verdana", 20, 0xFF0000, true));
+            }
         }
         //======================================================================
         //  Private methods
@@ -110,9 +121,13 @@ package org.signallite.examples.sixNumberGame.view
         private function reset():void
         {
         }
-        private function createField(text:String, y:Number = 0):TextField
+        private function createField(text:String, y:Number = 0, format:TextFormat = null):TextField
         {
             var result:TextField = new TextField();
+            if (format)
+            {
+                result.defaultTextFormat = format;
+            }
             result.text = text;
             result.width = result.textWidth + 4;
             result.height = result.textHeight + 4;
