@@ -1,20 +1,19 @@
 package org.signallite.examples.sixNumberGame.commands
 {
-    import org.signallite.examples.sixNumberGame.message.GameMessage;
-    import org.signallite.integrations.robotlegs.ISignalCommandMap;
-    public class SetUpCommandsCommand
+    import org.signallite.examples.sixNumberGame.model.PlayModel;
+    public class StartGameCommand
     {
         //======================================================================
         //  Dependencies
         //======================================================================
         [Inject]
-        public var commandMap:ISignalCommandMap;
+        public var model:PlayModel;
         //======================================================================
         //  Public methods
         //======================================================================
         public function execute():void
         {
-            commandMap.map(GameMessage.GAME_STARTED, StartGameCommand);
+            model.startGame();
         }
     }
 }

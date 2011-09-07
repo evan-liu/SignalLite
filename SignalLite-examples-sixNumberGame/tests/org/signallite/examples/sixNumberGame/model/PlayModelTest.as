@@ -27,7 +27,10 @@ package org.signallite.examples.sixNumberGame.model
         [Test(async)]
         public function startGame_should_start_first_round():void
         {
+            proceedOnSignal(this, instance.roundStarted);
+
             instance.startGame();
+
             assertEquals(1, instance.roundNumber);
         }
         [Test(async)]
