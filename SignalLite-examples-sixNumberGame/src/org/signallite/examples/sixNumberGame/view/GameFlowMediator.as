@@ -31,6 +31,8 @@ package org.signallite.examples.sixNumberGame.view
         {
             messageBus.unbindEvent(view, GameFlowEvent.START_GAME, GameMessage.GAME_STARTED);
             messageBus.unbindEvent(view, GameFlowEvent.RESTART_GAME, GameMessage.GAME_STARTED);
+
+            messageBus.removeListener(RoundMessage.ROUND_STARTED, roundStartedHandler);
         }
         //======================================================================
         //  Message handlers

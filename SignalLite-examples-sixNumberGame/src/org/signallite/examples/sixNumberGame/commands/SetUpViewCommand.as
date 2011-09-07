@@ -1,5 +1,7 @@
 package org.signallite.examples.sixNumberGame.commands
 {
+    import org.signallite.examples.sixNumberGame.view.PlayInfoMediator;
+    import org.signallite.examples.sixNumberGame.view.PlayInfoView;
     import org.robotlegs.core.IMediatorMap;
     import org.signallite.examples.sixNumberGame.view.GameFlowMediator;
     import org.signallite.examples.sixNumberGame.view.GameFlowView;
@@ -17,8 +19,9 @@ package org.signallite.examples.sixNumberGame.commands
         //======================================================================
         public function execute():void
         {
-            mediator.mapView(PlayerActView, PlayerActMediator);
             mediator.mapView(GameFlowView, GameFlowMediator);
+            mediator.mapView(PlayerActView, PlayerActMediator);
+            mediator.mapView(PlayInfoView, PlayInfoMediator);
         }
     }
 }

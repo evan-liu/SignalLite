@@ -2,12 +2,12 @@ package org.signallite.examples.sixNumberGame.signals
 {
     import org.signallite.SignalBase;
 
-    public class PlayActionSignal extends SignalBase
+    public class PlayActSignal extends SignalBase
     {
         //======================================================================
         //  Constructor
         //======================================================================
-        public function PlayActionSignal(target:Object = null, value:int = 0)
+        public function PlayActSignal(target:Object = null, value:int = 0)
         {
             super(target);
             _value = value;

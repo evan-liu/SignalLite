@@ -1,7 +1,7 @@
 package org.signallite.examples.sixNumberGame.model
 {
     import org.signallite.Signal;
-    import org.signallite.examples.sixNumberGame.signals.PlayActionSignal;
+    import org.signallite.examples.sixNumberGame.signals.PlayActSignal;
     import org.signallite.examples.sixNumberGame.signals.PlayResultSignal;
     public class PlayModel
     {
@@ -16,9 +16,9 @@ package org.signallite.examples.sixNumberGame.model
         public const roundStarted:Signal = new Signal(this);
         public const roundEnded:PlayResultSignal = new PlayResultSignal(this);
 
-        public const centerRoundReady:PlayActionSignal = new PlayActionSignal(this);
-        public const playerRoundReady:PlayActionSignal = new PlayActionSignal(this);
-        public const competitorRoundReady:PlayActionSignal = new PlayActionSignal(this);
+        public const centerRoundReady:PlayActSignal = new PlayActSignal(this);
+        public const playerRoundReady:PlayActSignal = new PlayActSignal(this);
+        public const competitorRoundReady:PlayActSignal = new PlayActSignal(this);
 
         public const gameEnded:PlayResultSignal = new PlayResultSignal(this);
         //======================================================================
@@ -40,6 +40,30 @@ package org.signallite.examples.sixNumberGame.model
         }
         //------------------------------
         //  playerRoundValue
+        //------------------------------
+        private var _playerRoundValue:int = 0;
+        public function get playerRoundValue():int
+        {
+            return _playerRoundValue;
+        }
+        //------------------------------
+        //  competitorRoundValue
+        //------------------------------
+        private var _competitorRoundValue:int = 0;
+        public function get competitorRoundValue():int
+        {
+            return _competitorRoundValue;
+        }
+        //------------------------------
+        //  centerRoundValue
+        //------------------------------
+        private var _centerRoundValue:int;
+        public function get centerRoundValue():int
+        {
+            return _centerRoundValue;
+        }
+        //------------------------------
+        //  playerOutValue
         //------------------------------
         private var _playerOutValue:int = 0;
         public function get playerOutValue():int
@@ -115,6 +139,8 @@ package org.signallite.examples.sixNumberGame.model
             _roundNumber++;
             _roundResult = null;
 
+            resetRoundValues();
+
             actCenterRound();
             actCompetitorRound();
 
@@ -122,27 +148,29 @@ package org.signallite.examples.sixNumberGame.model
         }
         public function actCenterRound():void
         {
-            var value:int = randomValue(centerValueList);
-            _centerOutValue += value;
-            centerRoundReady.dispatch(value);
+            _centerRoundValue = randomValue(centerValueList);
+            _centerOutValue += _centerRoundValue;
+            centerRoundReady.dispatch(_centerRoundValue);
         }
         public function actPlayerRound(value:int):void
         {
+            _playerRoundValue = value;
             _playerOutValue += value;
             playerRoundReady.dispatch(value);
             endRound();
         }
         public function actCompetitorRound():void
         {
-            var value:int = randomValue(competitorValueList);
-            _competitorOutValue += value;
-            competitorRoundReady.dispatch(value);
+            _competitorRoundValue = randomValue(competitorValueList);
+            _competitorOutValue += _competitorRoundValue;
+            competitorRoundReady.dispatch(_competitorRoundValue);
         }
         //======================================================================
         //  Private methods
         //======================================================================
         private function reset():void
         {
+            resetRoundValues();
             resetOutValues();
 
             _playerGameValue = 0;
@@ -154,6 +182,12 @@ package org.signallite.examples.sixNumberGame.model
             playerValueList = valueList;
             competitorValueList = valueList;
             centerValueList = valueList;
+        }
+        private function resetRoundValues():void
+        {
+            _centerRoundValue = 0;
+            _competitorRoundValue = 0;
+            _playerRoundValue = 0;
         }
         private function resetOutValues():void
         {

@@ -1,22 +1,22 @@
 package org.signallite.examples.sixNumberGame.commands
 {
-    import org.signallite.examples.sixNumberGame.message.RoundMessage;
-    import org.signallite.examples.sixNumberGame.message.GameMessage;
-    import org.signallite.integrations.robotlegs.ISignalCommandMap;
-    public class SetUpCommandsCommand
+    import org.signallite.examples.sixNumberGame.model.PlayModel;
+    import org.signallite.examples.sixNumberGame.events.PlayerActEvent;
+    public class HandlerPlayerActCommand
     {
         //======================================================================
         //  Dependencies
         //======================================================================
         [Inject]
-        public var commandMap:ISignalCommandMap;
+        public var triggerEvent:PlayerActEvent;
+        [Inject]
+        public var model:PlayModel;
         //======================================================================
         //  Public methods
         //======================================================================
         public function execute():void
         {
-            commandMap.map(GameMessage.GAME_STARTED, StartGameCommand);
-            commandMap.map(RoundMessage.PLAYER_ACT, HandlerPlayerActCommand);
+            model.actPlayerRound(triggerEvent.value);
         }
     }
 }

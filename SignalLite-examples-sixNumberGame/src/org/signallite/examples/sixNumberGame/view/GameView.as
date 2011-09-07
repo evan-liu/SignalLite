@@ -15,8 +15,9 @@ package org.signallite.examples.sixNumberGame.view
         //======================================================================
         //  Variables
         //======================================================================
-        private var playerView:PlayerActView;
+        private var playerActView:PlayerActView;
         private var flowView:GameFlowView;
+        private var playInfoView:PlayInfoView;
         //======================================================================
         //  Private methods
         //======================================================================
@@ -26,9 +27,13 @@ package org.signallite.examples.sixNumberGame.view
             flowView.y = 10;
             addChild(flowView);
 
-            playerView = new PlayerActView();
-            playerView.y = 50;
-            addChild(playerView);
+            playerActView = new PlayerActView();
+            playerActView.y = 50;
+            addChild(playerActView);
+
+            playInfoView = new PlayInfoView();
+            playInfoView.y = 100;
+            addChild(playInfoView);
         }
     }
 }
