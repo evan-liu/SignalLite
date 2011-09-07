@@ -19,7 +19,7 @@ package org.signallite.examples.sixNumberGame.view
         {
             if (!startButton)
             {
-                startButton = new GameFlowButton("Start Game");
+                startButton = new GameFlowButton("Play Game");
                 startButton.addEventListener(MouseEvent.CLICK, startButton_clickHandler);
             }
             render(startButton);
@@ -41,7 +41,7 @@ package org.signallite.examples.sixNumberGame.view
         private function render(content:Sprite):void
         {
             clean();
-            content.x = (stage.stageWidth - content.width) / 2;
+            content.x = 10;
             addChild(content);
         }
         //======================================================================

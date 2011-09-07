@@ -46,7 +46,7 @@ package org.signallite.examples.sixNumberGame.view.controls
             {
                 lineStyle(0, 0xFF0000, 0.5);
                 beginFill(0xDDDDDD);
-                drawRoundRect(0, 0, 50, 50, 10);
+                drawRoundRect(0, 0, 30, 30, 10);
                 endFill();
             }
 

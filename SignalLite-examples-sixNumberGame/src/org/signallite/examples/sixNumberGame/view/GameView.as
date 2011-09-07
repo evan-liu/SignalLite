@@ -22,13 +22,13 @@ package org.signallite.examples.sixNumberGame.view
         //======================================================================
         private function build():void
         {
-            playerView = new PlayerActView();
-            playerView.y = 300;
-            addChild(playerView);
-
             flowView = new GameFlowView();
-            flowView.y = 360;
+            flowView.y = 10;
             addChild(flowView);
+
+            playerView = new PlayerActView();
+            playerView.y = 50;
+            addChild(playerView);
         }
     }
 }

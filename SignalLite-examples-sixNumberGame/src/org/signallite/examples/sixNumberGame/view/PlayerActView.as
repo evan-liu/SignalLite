@@ -5,6 +5,7 @@ package org.signallite.examples.sixNumberGame.view
 
     import flash.display.Sprite;
     import flash.events.MouseEvent;
+    import flash.text.TextField;
 
     public class PlayerActView extends Sprite
     {
@@ -20,7 +21,16 @@ package org.signallite.examples.sixNumberGame.view
         //======================================================================
         public function fill(valueList:Vector.<int>):void
         {
-            var currentX:Number = 100;
+            var field:TextField = new TextField();
+            field.text = "Choose:";
+            field.width = field.textWidth + 4;
+            field.height = field.textHeight + 4;
+            field.x = 10;
+            field.y = 7;
+            addChild(field);
+            field.visible = false;
+
+            var currentX:Number = 60;
             for each (var value:int in valueList)
             {
                 var button:PlayerActButton = new PlayerActButton(value);
