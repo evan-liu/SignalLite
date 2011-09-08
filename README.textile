@@ -12,8 +12,7 @@ h3. Signals are passed to listeners as the only argument just like native event 
 
 SomeListener:
 
-<pre><code>
-private function addHandlers():void
+<pre><code>private function addHandlers():void
 {
     someDispatcher.someSignal.addOnce(someDispatcher_someSignalHandler);
 }
@@ -23,15 +22,13 @@ private function someDispatcher_someSignalHandler(signal:SomeSignal):void
     var someValue:Number = signal.someValue;
     var anotherValue:Number = signal.anotherValue;
     // ...
-}
-</code></pre>
+}</code></pre>
 
 h3. Signals has a <code>target</code> property like native events.
 
 SomeSignal:
 
-<pre><code>
-public function SignalBase(target:Object = null)
+<pre><code>public function SignalBase(target:Object = null)
 {
     _target = target;
 }
@@ -39,21 +36,17 @@ private var _target:Object;
 public function get target():Object
 {
     return _target;
-}
-</code></pre>
+}</code></pre>
 
 SomeSignal extends SignalBase:
 
-<pre><code>
-public const someSignal:SomeSignal = new SomeSignal(this);
-</code></pre>
+<pre><code>public const someSignal:SomeSignal = new SomeSignal(this);</code></pre>
 
 h3. Signals carry parameters as properties.
 
 SomeSignal:
 
-<pre><code>
-private var _someValue:Number;
+<pre><code>private var _someValue:Number;
 public function get someValue():Number
 {
     return _someValue;
@@ -62,30 +55,25 @@ private var _anotherValue:Number;
 public function get anotherValue():Number
 {
     return _anotherValue;
-}
-</code></pre>
+}</code></pre>
 
 h3. Signals has own <code>dispatch()</code> methods according to parameters.
 
 SomeSignal:
 
-<pre><code>
-public function dispatch(someValue:Number, anotherValue:Number):void
+<pre><code>public function dispatch(someValue:Number, anotherValue:Number):void
 {
     _someValue = someValue;
     _anotherValue = anotherValue;
     callListeners();
-}
-</code></pre>
+}</code></pre>
 
 SomeDispatcher:
 
-<pre><code>
-private function somethingHappened():void
+<pre><code>private function somethingHappened():void
 {
     someSignal.dispatch(someValue, anotherValue);
-}
-</code></pre>
+}</code></pre>
 
 h2. MessageBus and Robotlegs
 
@@ -110,3 +98,29 @@ Or bind a <code>Event</code> to a <code>MessageType</code>:
 h3. SignalCommandMap based on <code>MessageBus</code> and <code>MessageType</code>
 
 <pre><code>signalCommandMap.map(GameMessage.GAME_STARTED, StartGameCommand);</code></pre>
+
+h3. Signal or Event trigger some message will pass to handlers. 
+
+<pre><code>override public function onRegister():void
+{
+    messageBus.addListener(GameMessage.GAME_ENDED, gameEndedHandler);
+}
+private function gameEndedHandler(signal:PlayResultSignal):void
+{
+    view.renderGameResult(signal.result);
+}</code></pre>
+
+h3. Signal or Event trigger some message will pass to mapped Command. 
+
+<pre><code>[Inject]
+public var triggerEvent:PlayerActEvent;
+[Inject]
+public var model:PlayModel;
+public function execute():void
+{
+    model.actPlayerRound(triggerEvent.value);
+}</code></pre>
+
+h2. More...
+
+See "example":https://github.com/eidiot/SignalLite/tree/master/SignalLite-examples-sixNumberGame
