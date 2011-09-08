@@ -1,0 +1,112 @@
+h1. SignalLite: A lite version of as3-signals with features like navive Event
+
+SignalLite is a lite version of "Robert Penner":http://twitter.com/robpenner 's "as3-signals":https://github.com/robertpenner/as3-signals with some features more like AS3 navite Events.
+
+h2. Differences from "as3-signals":https://github.com/robertpenner/as3-signals/wiki like Event:
+
+* The listened signal is the only argument pass to handler functions.
+* Signals have a target property.
+* Signals carry parameters as properties.
+
+h3. Signals are passed to listeners as the only argument just like native event handlers.
+
+SomeListener:
+
+<pre><code>
+private function addHandlers():void
+{
+    someDispatcher.someSignal.addOnce(someDispatcher_someSignalHandler);
+}
+private function someDispatcher_someSignalHandler(signal:SomeSignal):void
+{
+    var target:SomeDispatcher = signal.target;
+    var someValue:Number = signal.someValue;
+    var anotherValue:Number = signal.anotherValue;
+    // ...
+}
+</code></pre>
+
+h3. Signals has a <code>target</code> property like native events.
+
+SomeSignal:
+
+<pre><code>
+public function SignalBase(target:Object = null)
+{
+    _target = target;
+}
+private var _target:Object;
+public function get target():Object
+{
+    return _target;
+}
+</code></pre>
+
+SomeSignal extends SignalBase:
+
+<pre><code>
+public const someSignal:SomeSignal = new SomeSignal(this);
+</code></pre>
+
+h3. Signals carry parameters as properties.
+
+SomeSignal:
+
+<pre><code>
+private var _someValue:Number;
+public function get someValue():Number
+{
+    return _someValue;
+}
+private var _anotherValue:Number;
+public function get anotherValue():Number
+{
+    return _anotherValue;
+}
+</code></pre>
+
+h3. Signals has own <code>dispatch()</code> methods according to parameters.
+
+SomeSignal:
+
+<pre><code>
+public function dispatch(someValue:Number, anotherValue:Number):void
+{
+    _someValue = someValue;
+    _anotherValue = anotherValue;
+    callListeners();
+}
+</code></pre>
+
+SomeDispatcher:
+
+<pre><code>
+private function somethingHappened():void
+{
+    someSignal.dispatch(someValue, anotherValue);
+}
+</code></pre>
+
+h2. MessageBus and Robotlegs
+
+There is a <code>MessageBus</code> class to work with "Robotlegs":http://www.robotlegs.org Framework.
+
+h3. MessageType
+
+Like <code>Event.type</code>, <code>MessageBus</code> relay on <code>MessageType</code>. 
+
+You can dispatch a <code>MessageBus</code>: 
+
+<pre><code>messageBus.dispatch(ContextMessage.STARTUP);</code></pre>
+
+You can bind a <code>Signal</code> to a <code>MessageType></code>:
+
+<pre><code>messageBus.bindSignal(playModel.roundStarted, RoundMessage.ROUND_STARTED);</code></pre>
+
+Or bind a <code>Event</code> to a <code>MessageType</code>:
+
+<pre><code>messageBus.bindEvent(view, GameFlowEvent.START_GAME, GameMessage.GAME_STARTED);</code></pre>
+
+h3. SignalCommandMap based on <code>MessageBus</code> and <code>MessageType</code>
+
+<pre><code>signalCommandMap.map(GameMessage.GAME_STARTED, StartGameCommand);</code></pre>
