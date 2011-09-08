@@ -89,13 +89,13 @@ private function somethingHappened():void
 
 h2. MessageBus and Robotlegs
 
-There is a <code>MessageBus</code> class to work with "Robotlegs":http://www.robotlegs.org Framework.
+There is a <code>MessageBus</code> class to work with "Robotlegs":http://www.robotlegs.org Framework. With <code>MessageBus</code> and <code>MessageType</code> classes both view and model classes can be free form framework (No injection).
 
 h3. MessageType
 
-Like <code>Event.type</code>, <code>MessageBus</code> relay on <code>MessageType</code>. 
+<code>MessageBus</code> relay on <code>MessageType</code> like <code>Event.type</code>. 
 
-You can dispatch a <code>MessageBus</code>: 
+You can dispatch a <code>MessageType</code>: 
 
 <pre><code>messageBus.dispatch(ContextMessage.STARTUP);</code></pre>
 
