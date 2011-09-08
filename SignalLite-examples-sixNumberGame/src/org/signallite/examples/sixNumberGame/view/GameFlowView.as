@@ -1,10 +1,10 @@
 package org.signallite.examples.sixNumberGame.view
 {
-    import org.signallite.examples.sixNumberGame.events.GameFlowEvent;
-    import org.signallite.examples.sixNumberGame.view.controls.GameFlowButton;
-
     import flash.display.Sprite;
     import flash.events.MouseEvent;
+    import org.signallite.examples.sixNumberGame.message.GameFlowEvent;
+    import org.signallite.examples.sixNumberGame.view.controls.GameFlowButton;
+
 
     public class GameFlowView extends Sprite
     {

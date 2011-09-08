@@ -1,7 +1,7 @@
 package org.signallite.examples.sixNumberGame.commands
 {
+    import org.signallite.examples.sixNumberGame.message.PlayerActEvent;
     import org.signallite.examples.sixNumberGame.model.PlayModel;
-    import org.signallite.examples.sixNumberGame.events.PlayerActEvent;
     public class HandlerPlayerActCommand
     {
         //======================================================================

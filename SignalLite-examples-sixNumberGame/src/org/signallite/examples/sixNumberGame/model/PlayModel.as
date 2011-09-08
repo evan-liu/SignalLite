@@ -1,8 +1,8 @@
 package org.signallite.examples.sixNumberGame.model
 {
     import org.signallite.Signal;
-    import org.signallite.examples.sixNumberGame.signals.PlayActSignal;
-    import org.signallite.examples.sixNumberGame.signals.PlayResultSignal;
+    import org.signallite.examples.sixNumberGame.message.PlayActSignal;
+    import org.signallite.examples.sixNumberGame.message.PlayResultSignal;
     public class PlayModel
     {
         //======================================================================

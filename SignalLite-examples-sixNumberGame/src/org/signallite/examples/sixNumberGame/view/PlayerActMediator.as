@@ -1,10 +1,10 @@
 package org.signallite.examples.sixNumberGame.view
 {
-    import org.signallite.examples.sixNumberGame.message.RoundMessage;
-    import org.signallite.examples.sixNumberGame.events.PlayerActEvent;
-    import org.signallite.examples.sixNumberGame.message.GameMessage;
-    import org.signallite.IMessageBus;
     import org.robotlegs.mvcs.Mediator;
+    import org.signallite.IMessageBus;
+    import org.signallite.examples.sixNumberGame.message.GameMessage;
+    import org.signallite.examples.sixNumberGame.message.PlayerActEvent;
+    import org.signallite.examples.sixNumberGame.message.RoundMessage;
     import org.signallite.examples.sixNumberGame.model.PlayModel;
 
     public class PlayerActMediator extends Mediator

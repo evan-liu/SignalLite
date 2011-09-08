@@ -1,11 +1,11 @@
 package org.signallite.examples.sixNumberGame.view
 {
-    import org.signallite.examples.sixNumberGame.events.PlayerActEvent;
-    import org.signallite.examples.sixNumberGame.view.controls.PlayerActButton;
-
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.text.TextField;
+    import org.signallite.examples.sixNumberGame.message.PlayerActEvent;
+    import org.signallite.examples.sixNumberGame.view.controls.PlayerActButton;
+
 
     public class PlayerActView extends Sprite
     {

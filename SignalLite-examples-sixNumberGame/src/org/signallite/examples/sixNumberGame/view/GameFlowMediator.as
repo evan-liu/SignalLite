@@ -2,7 +2,7 @@ package org.signallite.examples.sixNumberGame.view
 {
     import org.robotlegs.mvcs.Mediator;
     import org.signallite.IMessageBus;
-    import org.signallite.examples.sixNumberGame.events.GameFlowEvent;
+    import org.signallite.examples.sixNumberGame.message.GameFlowEvent;
     import org.signallite.examples.sixNumberGame.message.GameMessage;
     import org.signallite.examples.sixNumberGame.message.RoundMessage;
 

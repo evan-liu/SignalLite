@@ -1,4 +1,4 @@
-package org.signallite.examples.sixNumberGame.signals
+package org.signallite.examples.sixNumberGame.message
 {
     import org.signallite.SignalBase;
     import org.signallite.examples.sixNumberGame.model.PlayResult;

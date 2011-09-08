@@ -1,4 +1,4 @@
-package org.signallite.examples.sixNumberGame.events
+package org.signallite.examples.sixNumberGame.message
 {
     import flash.events.Event;
 

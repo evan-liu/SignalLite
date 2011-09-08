@@ -1,19 +1,15 @@
-package org.signallite.examples.sixNumberGame.events
+package org.signallite.examples.sixNumberGame.message
 {
-    import flash.events.Event;
+    import org.signallite.SignalBase;
 
-    public class PlayerActEvent extends Event
+    public class PlayActSignal extends SignalBase
     {
-        //======================================================================
-        //  Class constants
-        //======================================================================
-        public static const PLAYER_ACT:String = "playerAct";
         //======================================================================
         //  Constructor
         //======================================================================
-        public function PlayerActEvent(value:int)
+        public function PlayActSignal(target:Object = null, value:int = 0)
         {
-            super(PLAYER_ACT, true);
+            super(target);
             _value = value;
         }
         //======================================================================
@@ -28,11 +24,12 @@ package org.signallite.examples.sixNumberGame.events
             return _value;
         }
         //======================================================================
-        //  Overridden methods
-        // ======================================================================
-        override public function clone():Event
+        //  Public methods
+        //======================================================================
+        public function dispatch(value:int):void
         {
-            return new PlayerActEvent(_value);
+            _value = value;
+            callListeners();
         }
     }
 }
