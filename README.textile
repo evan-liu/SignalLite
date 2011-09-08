@@ -1,8 +1,8 @@
-h1. SignalLite: A lite version of as3-signals with features like navive Event
+h1. SignalLite: A lite version of as3-signals with features like native Event
 
-SignalLite is a lite version of "Robert Penner":http://twitter.com/robpenner 's "as3-signals":https://github.com/robertpenner/as3-signals with some features more like AS3 navite Events.
+SignalLite is a lite version of "Robert Penner":http://twitter.com/robpenner 's "as3-signals":https://github.com/robertpenner/as3-signals with some features more like AS3 native Events.
 
-h2. Differences from "as3-signals":https://github.com/robertpenner/as3-signals/wiki like Event:
+h2. Differences from "as3-signals":https://github.com/robertpenner/as3-signals/wiki like AS3 native Event:
 
 * The listened signal is the only argument pass to handler functions.
 * Signals have a target property.
