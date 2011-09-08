@@ -26,6 +26,7 @@ package org.signallite.examples.sixNumberGame.view
             messageBus.bindEvent(view, GameFlowEvent.RESTART_GAME, GameMessage.GAME_STARTED);
 
             messageBus.addListener(RoundMessage.ROUND_STARTED, roundStartedHandler);
+            messageBus.addListener(GameMessage.GAME_ENDED, gameEndedHandler);
         }
         override public function onRemove():void
         {
@@ -40,6 +41,10 @@ package org.signallite.examples.sixNumberGame.view
         private function roundStartedHandler():void
         {
             view.showPlaying();
+        }
+        private function gameEndedHandler():void
+        {
+            view.showEnd();
         }
     }
 }

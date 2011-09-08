@@ -1,9 +1,10 @@
 package org.signallite.examples.sixNumberGame.view
 {
-    import flash.display.Sprite;
-    import flash.events.MouseEvent;
     import org.signallite.examples.sixNumberGame.message.GameFlowEvent;
     import org.signallite.examples.sixNumberGame.view.controls.GameFlowButton;
+
+    import flash.display.Sprite;
+    import flash.events.MouseEvent;
 
 
     public class GameFlowView extends Sprite
@@ -12,6 +13,7 @@ package org.signallite.examples.sixNumberGame.view
         //  Variables
         //======================================================================
         private var startButton:Sprite;
+        private var restartButton:Sprite;
         //======================================================================
         //  Public methods
         //======================================================================
@@ -27,6 +29,15 @@ package org.signallite.examples.sixNumberGame.view
         public function showPlaying():void
         {
             clean();
+        }
+        public function showEnd():void
+        {
+            if (!restartButton)
+            {
+                restartButton = new GameFlowButton("Play Again");
+                restartButton.addEventListener(MouseEvent.CLICK, restartButton_clickHandler);
+            }
+            render(restartButton);
         }
         //======================================================================
         //  Private methods
@@ -50,6 +61,10 @@ package org.signallite.examples.sixNumberGame.view
         private function startButton_clickHandler(event:MouseEvent):void
         {
             dispatchEvent(new GameFlowEvent(GameFlowEvent.START_GAME));
+        }
+        private function restartButton_clickHandler(event:MouseEvent):void
+        {
+            dispatchEvent(new GameFlowEvent(GameFlowEvent.RESTART_GAME));
         }
     }
 }

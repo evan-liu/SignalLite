@@ -141,10 +141,10 @@ package org.signallite.examples.sixNumberGame.model
 
             resetRoundValues();
 
+            roundStarted.dispatch();
+
             actCenterRound();
             actCompetitorRound();
-
-            roundStarted.dispatch();
         }
         public function actCenterRound():void
         {

@@ -120,6 +120,14 @@ package org.signallite.examples.sixNumberGame.view
         //======================================================================
         private function reset():void
         {
+            for (var i:int = 0; i < numChildren; i++)
+            {
+                var field:TextField = getChildAt(i) as TextField;
+                if (field)
+                {
+                    field.text = "";
+                }
+            }
         }
         private function createField(text:String, y:Number = 0, format:TextFormat = null):TextField
         {
