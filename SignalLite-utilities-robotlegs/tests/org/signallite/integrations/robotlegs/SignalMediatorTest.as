@@ -7,12 +7,12 @@ package org.signallite.integrations.robotlegs
 
     import flash.events.Event;
     import flash.events.EventDispatcher;
-    public class SingalMediatorTest
+    public class SignalMediatorTest
     {
         //======================================================================
         //  Variables
         //======================================================================
-        private var instance:SingalMediator;
+        private var instance:SignalMediator;
         private var messageBus:MessageBus;
         private var eventDispatcher:EventDispatcher;
         private var signal:Signal;
@@ -28,7 +28,7 @@ package org.signallite.integrations.robotlegs
             messageBus = new MessageBus();
             eventDispatcher = new EventDispatcher();
             signal = new Signal();
-            instance = new SingalMediator();
+            instance = new SignalMediator();
             instance.messageBus = messageBus;
             calledCount = 0;
         }

@@ -7,7 +7,7 @@ package org.signallite.integrations.robotlegs
 
     import flash.events.IEventDispatcher;
 
-    public class SingalMediator extends MediatorBase
+    public class SignalMediator extends MediatorBase
     {
         //======================================================================
         //  Dependencies
