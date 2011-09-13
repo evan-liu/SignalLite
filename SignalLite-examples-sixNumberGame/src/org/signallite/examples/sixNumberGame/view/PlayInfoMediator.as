@@ -1,14 +1,13 @@
 package org.signallite.examples.sixNumberGame.view
 {
-    import org.robotlegs.mvcs.Mediator;
-    import org.signallite.IMessageBus;
     import org.signallite.examples.sixNumberGame.message.GameMessage;
     import org.signallite.examples.sixNumberGame.message.PlayActSignal;
     import org.signallite.examples.sixNumberGame.message.PlayResultSignal;
     import org.signallite.examples.sixNumberGame.message.RoundMessage;
     import org.signallite.examples.sixNumberGame.model.PlayModel;
+    import org.signallite.integrations.robotlegs.SignalMediator;
 
-    public class PlayInfoMediator extends Mediator
+    public class PlayInfoMediator extends SignalMediator
     {
         //======================================================================
         //  Dependencies
@@ -16,25 +15,16 @@ package org.signallite.examples.sixNumberGame.view
         [Inject]
         public var view:PlayInfoView;
         [Inject]
-        public var messageBus:IMessageBus;
-        [Inject]
         public var model:PlayModel;
         //======================================================================
         //  Overridden methods
         //======================================================================
         override public function onRegister():void
         {
-            messageBus.addListener(RoundMessage.ROUND_STARTED, roundStartedHandler);
-            messageBus.addListener(RoundMessage.CENTER_ROUND_READY, centerRoundReadyHandler);
-            messageBus.addListener(RoundMessage.ROUND_ENDED, roundEndedHandler);
-            messageBus.addListener(GameMessage.GAME_ENDED, gameEndedHandler);
-        }
-        override public function onRemove():void
-        {
-            messageBus.removeListener(RoundMessage.ROUND_STARTED, roundStartedHandler);
-            messageBus.removeListener(RoundMessage.CENTER_ROUND_READY, centerRoundReadyHandler);
-            messageBus.removeListener(RoundMessage.ROUND_ENDED, roundEndedHandler);
-            messageBus.removeListener(GameMessage.GAME_ENDED, gameEndedHandler);
+            addMessageListener(RoundMessage.ROUND_STARTED, roundStartedHandler);
+            addMessageListener(RoundMessage.CENTER_ROUND_READY, centerRoundReadyHandler);
+            addMessageListener(RoundMessage.ROUND_ENDED, roundEndedHandler);
+            addMessageListener(GameMessage.GAME_ENDED, gameEndedHandler);
         }
         //======================================================================
         //  Message handlers
