@@ -35,34 +35,34 @@ package org.signallite.integrations.robotlegs
         //------------------------------
         //  Dispatch
         //------------------------------
-        public function dispatchMessage(type:MessageType, messageObject:* = null):void
+        protected function dispatchMessage(type:MessageType, messageObject:* = null):void
         {
             messageBus.dispatch(type, messageObject);
         }
         //------------------------------
         //  Add listeners
         //------------------------------
-        public function addMessageListener(type:MessageType, listener:Function):Function
+        protected function addMessageListener(type:MessageType, listener:Function):Function
         {
             addCleanFuncion(messageBus.removeListener, type, listener);
             return messageBus.addListener(type, listener);
         }
-        public function addMessageListenerOnce(type:MessageType, listener:Function):Function
+        protected function addMessageListenerOnce(type:MessageType, listener:Function):Function
         {
             addCleanFuncion(messageBus.removeListener, type, listener);
             return messageBus.addListenerOnce(type, listener);
         }
-        public function addSignalListener(signal:ISignal, listener:Function):void
+        protected function addSignalListener(signal:ISignal, listener:Function):void
         {
             addCleanFuncion(signal.remove, listener);
             signal.add(listener);
         }
-        public function addSignalListenerOnce(signal:ISignal, listener:Function):void
+        protected function addSignalListenerOnce(signal:ISignal, listener:Function):void
         {
             addCleanFuncion(signal.remove, listener);
             signal.addOnce(listener);
         }
-        public function addEventListener(eventDispatcher:IEventDispatcher, type:String,
+        protected function addEventListener(eventDispatcher:IEventDispatcher, type:String,
                                          listener:Function, useCapture:Boolean = false,
                                          priority:int = 0, useWeakReference:Boolean = false):void
         {
@@ -72,12 +72,13 @@ package org.signallite.integrations.robotlegs
         //------------------------------
         //  Bind messages
         //------------------------------
-        public function bindEventToMessage(eventDispatcher:IEventDispatcher, eventType:String, type:MessageType):void
+        protected function bindEventToMessage(eventDispatcher:IEventDispatcher,
+                                              eventType:String, type:MessageType):void
         {
             addCleanFuncion(messageBus.unbindEvent, eventDispatcher, eventType, type);
             messageBus.bindEvent(eventDispatcher, eventType, type);
         }
-        public function bindSignalToMessage(signal:ISignal, type:MessageType):void
+        protected function bindSignalToMessage(signal:ISignal, type:MessageType):void
         {
             addCleanFuncion(messageBus.unbindSignal, signal, type);
             messageBus.bindSignal(signal, type);
@@ -85,21 +86,22 @@ package org.signallite.integrations.robotlegs
         //------------------------------
         //  Remove listeners
         //------------------------------
-        public function removeMessageListener(type:MessageType, listener:Function):Function
+        protected function removeMessageListener(type:MessageType, listener:Function):Function
         {
             return messageBus.removeListener(type, listener);
         }
-        public function unbindEventToMessage(eventDispatcher:IEventDispatcher, eventType:String, type:MessageType):void
+        protected function unbindEventToMessage(eventDispatcher:IEventDispatcher,
+                                                eventType:String, type:MessageType):void
         {
             messageBus.unbindEvent(eventDispatcher, eventType, type);
         }
-        public function unbindSignalToMessage(signal:ISignal, type:MessageType):void
+        protected function unbindSignalToMessage(signal:ISignal, type:MessageType):void
         {
             messageBus.unbindSignal(signal, type);
         }
-        //======================================================================
-        //  Protected methods
-        //======================================================================
+        //------------------------------
+        //  Cleaning methods
+        //------------------------------
         protected function addCleanFuncion(target:Function, ...args):void
         {
             cleanFunctionList.push(new FunctionWrapper(target, args));
